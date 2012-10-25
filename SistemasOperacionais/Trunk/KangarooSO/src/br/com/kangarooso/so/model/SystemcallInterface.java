@@ -15,10 +15,10 @@ public class SystemcallInterface implements Serializable{
 	public SystemcallInterface(Kernel kernel) {
 		this.kernel = kernel;
 		this.mapSystemcall = new HashMap<String,Systemcall>();
-		mapSystemcall.put(LSSystemCall.keyCommand, new LSSystemCall());
-		mapSystemcall.put(CDSystemCall.keyCommand, new CDSystemCall());
-		mapSystemcall.put(HelpSystemCall.keyCommand, new HelpSystemCall());
-		mapSystemcall.put(ExitSystemCall.keyCommand, new ExitSystemCall());
+		mapSystemcall.put(LSSystemcall.keyCommand, new LSSystemcall());
+		mapSystemcall.put(CDSystemcall.keyCommand, new CDSystemcall());
+		mapSystemcall.put(HelpSystemcall.keyCommand, new HelpSystemcall());
+		mapSystemcall.put(ExitSystemcall.keyCommand, new ExitSystemcall());
 	}
 	
 	public void exec(String input) throws CommandNotFoundException{

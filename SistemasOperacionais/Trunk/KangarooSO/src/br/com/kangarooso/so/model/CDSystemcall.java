@@ -1,9 +1,9 @@
 package br.com.kangarooso.so.model;
 
-public class LSSystemCall extends Systemcall{
+public class CDSystemcall extends Systemcall{
 
 	private static final long serialVersionUID = 4214028622536185730L;
-	public static final String keyCommand = "ls";
+	public static final String keyCommand = "cd";
 	
 	@Override
 	public void run(String... params) {
