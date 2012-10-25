@@ -10,15 +10,15 @@ public class SystemcallInterface implements Serializable{
 	private static final long serialVersionUID = -4339072303120200322L;
 
 	private Kernel kernel;
-	private HashMap<String,Systemcall> mapSystemcall;
+	private HashMap<String,Class<? extends Systemcall>> mapSystemcall;
 	
 	public SystemcallInterface(Kernel kernel) {
 		this.kernel = kernel;
-		this.mapSystemcall = new HashMap<String,Systemcall>();
-		mapSystemcall.put(LSSystemcall.keyCommand, new LSSystemcall());
-		mapSystemcall.put(CDSystemcall.keyCommand, new CDSystemcall());
-		mapSystemcall.put(HelpSystemcall.keyCommand, new HelpSystemcall());
-		mapSystemcall.put(ExitSystemcall.keyCommand, new ExitSystemcall());
+		this.mapSystemcall = new HashMap<String,Class<? extends Systemcall>>();
+		mapSystemcall.put(LSSystemcall.keyCommand, LSSystemcall.class);
+		mapSystemcall.put(CDSystemcall.keyCommand, CDSystemcall.class);
+		mapSystemcall.put(HelpSystemcall.keyCommand, HelpSystemcall.class);
+		mapSystemcall.put(ExitSystemcall.keyCommand, ExitSystemcall.class);
 	}
 	
 	public void exec(String input) throws CommandNotFoundException{
@@ -29,7 +29,11 @@ public class SystemcallInterface implements Serializable{
 				throw new CommandNotFoundException(commandKey);
 			}
 			else{
-				((Systemcall)mapSystemcall.get(commandKey)).run();
+				try {
+					((Systemcall)((Class<? extends Systemcall>)mapSystemcall.get(commandKey)).newInstance()).run();
+				} catch (InstantiationException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
